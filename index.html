@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 12 Mock Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .timer {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .question-text {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .options {
+            margin: 10px 0;
+        }
+        .option {
+            margin: 5px 0;
+        }
+        #submitBtn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #submitBtn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Class 12 Mock Test</h2>
+    <div class="timer" id="timer">30:00</div>
+
+    <form id="quizForm">
+        <!-- Questions will be inserted here dynamically -->
+    </form>
+
+    <button id="submitBtn" onclick="submitTest()">Submit Test</button>
+</div>
+
+<script>
+// Questions for the mock test
+const questions = [
+    { 
+        question: "What is the capital of France?", 
+        options: ["Berlin", "Madrid", "Paris", "Rome"],
+        correct: "Paris"
+    },
+    { 
+        question: "What is 2 + 2?", 
+        options: ["3", "4", "5", "6"],
+        correct: "4"
+    },
+    { 
+        question: "Which planet is known as the Red Planet?", 
+        options: ["Earth", "Mars", "Jupiter", "Saturn"],
+        correct: "Mars"
+    },
+    { 
+        question: "What is the boiling point of water?", 
+        options: ["90°C", "100°C", "120°C", "150°C"],
+        correct: "100°C"
+    },
+    { 
+        question: "Who wrote 'Romeo and Juliet'?", 
+        options: ["Charles Dickens", "Mark Twain", "William Shakespeare", "Jane Austen"],
+        correct: "William Shakespeare"
+    },
+    { 
+        question: "What is the formula for water?", 
+        options: ["H2O", "CO2", "O2", "H2O2"],
+        correct: "H2O"
+    },
+    { 
+        question: "Which gas do plants absorb for photosynthesis?", 
+        options: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"],
+        correct: "Carbon Dioxide"
+    },
+    { 
+        question: "Which element has the chemical symbol 'O'?", 
+        options: ["Oxygen", "Osmium", "Ozone", "Oxygenium"],
+        correct: "Oxygen"
+    },
+    { 
+        question: "Which organ pumps blood throughout the human body?", 
+        options: ["Lungs", "Heart", "Brain", "Stomach"],
+        correct: "Heart"
+    },
+    { 
+        question: "Which of these is a renewable source of energy?", 
+        options: ["Coal", "Wind", "Natural Gas", "Oil"],
+        correct: "Wind"
+    },
+    { 
+        question: "What is the speed of light?", 
+        options: ["3 × 10^8 m/s", "3 × 10^6 m/s", "3 × 10^4 m/s", "3 × 10^2 m/s"],
+        correct: "3 × 10^8 m/s"
+    },
+    { 
+        question: "Who developed the theory of relativity?", 
+        options: ["Isaac Newton", "Albert Einstein", "Nikola Tesla", "Marie Curie"],
+        correct: "Albert Einstein"
+    },
+    { 
+        question: "What is the largest continent?", 
+        options: ["Africa", "Asia", "Europe", "Australia"],
+        correct: "Asia"
+    },
+    { 
+        question: "What is the symbol for gold on the periodic table?", 
+        options: ["Ag", "Au", "Pb", "Fe"],
+        correct: "Au"
+    },
+    { 
+        question: "Which is the hardest natural substance?", 
+        options: ["Gold", "Iron", "Diamond", "Platinum"],
+        correct: "Diamond"
+    },
+    { 
+        question: "Which is the longest river in the world?", 
+        options: ["Amazon", "Nile", "Yangtze", "Mississippi"],
+        correct: "Amazon"
+    },
+    { 
+        question: "Who invented the telephone?", 
+        options: ["Thomas Edison", "Alexander Graham Bell", "Nikola Tesla", "Michael Faraday"],
+        correct: "Alexander Graham Bell"
+    },
+    { 
+        question: "What is the square root of 64?", 
+        options: ["6", "7", "8", "9"],
+        correct: "8"
+    },
+    { 
+        question: "Which of these is a mammal?", 
+        options: ["Shark", "Penguin", "Dolphin", "Lizard"],
+        correct: "Dolphin"
+    },
+    { 
+        question: "What is the chemical symbol for Sodium?", 
+        options: ["Na", "So", "Sn", "S"],
+        correct: "Na"
+    },
+    { 
+        question: "Which number is known as the 'Golden Ratio'?", 
+        options: ["1", "2", "3", "1.618"],
+        correct: "1.618"
+    },
+    { 
+        question: "Who is the first President of the United States?", 
+        options: ["George Washington", "Abraham Lincoln", "Thomas Jefferson", "John Adams"],
+        correct: "George Washington"
+    },
+    { 
+        question: "What is the capital of Japan?", 
+        options: ["Beijing", "Seoul", "Tokyo", "Manila"],
+        correct: "Tokyo"
+    },
+    { 
+        question: "How many continents are there?", 
+        options: ["5", "6", "7", "8"],
+        correct: "7"
+    },
+    { 
+        question: "What is the currency of the United Kingdom?", 
+        options: ["Euro", "Pound", "Dollar", "Yen"],
+        correct: "Pound"
+    },
+    { 
+        question: "What is the symbol for silver on the periodic table?", 
+        options: ["Ag", "Au", "Si", "Pb"],
+        correct: "Ag"
+    },
+    { 
+        question: "Who painted the Mona Lisa?", 
+        options: ["Vincent Van Gogh", "Leonardo da Vinci", "Pablo Picasso", "Claude Monet"],
+        correct: "Leonardo da Vinci"
+    },
+    { 
+        question: "What is the capital of the USA?", 
+        options: ["New York", "Los Angeles", "Washington D.C.", "Chicago"],
+        correct: "Washington D.C."
+    },
+    { 
+        question: "What is the freezing point of water?", 
+        options: ["0°C", "32°F", "100°C", "212°F"],
+        correct: "0°C"
+    },
+    { 
+        question: "Which planet is known for its rings?", 
+        options: ["Venus", "Saturn", "Mars", "Neptune"],
+        correct: "Saturn"
+    },
+    { 
+        question: "Who is known as the father of modern physics?", 
+        options: ["Isaac Newton", "Albert Einstein", "Galileo Galilei", "Marie Curie"],
+        correct: "Albert Einstein"
+    },
+    { 
+        question: "What is the largest organ in the human body?", 
+        options: ["Brain", "Heart", "Skin", "Lungs"],
+        correct: "Skin"
+    },
+    { 
+        question: "What is the most common gas in Earth's atmosphere?", 
+        options: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Argon"],
+        correct: "Nitrogen"
+    },
+    { 
+        question: "Which gas do humans exhale?", 
+        options: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Argon"],
+        correct: "Carbon Dioxide"
+    },
+    { 
+        question: "What is the chemical symbol for Helium?", 
+        options: ["H", "He", "O", "N"],
+        correct: "He"
+    },
+    { 
+        question: "What is the speed of sound in air?", 
+        options: ["330 m/s", "343 m/s", "299,792,458 m/s", "123 m/s"],
+        correct: "343 m/s"
+    },
+    { 
+        question: "What is the smallest country in the world?", 
+        options: ["Monaco", "Vatican City", "San Marino", "Liechtenstein"],
+        correct: "Vatican City"
+    },
+    { 
+        question: "What is the symbol for potassium?", 
+        options: ["P", "K", "Po", "Ka"],
+        correct: "K"
+    },
+    { 
+        question: "What is the atomic number of oxygen?", 
+        options: ["8", "6", "16", "18"],
+        correct: "8"
+    }
+];
+
+let timer = 30 * 60; // 30 minutes in seconds
+let interval;
+let answered = 0;
+
+function startTimer() {
+    interval = setInterval(function() {
+        let minutes = Math.floor(timer / 60);
+        let seconds = timer % 60;
+        document.getElementById('timer').innerText = ${minutes}:${seconds < 10 ? '0' : ''}${seconds};
+        if (timer === 0) {
+            clearInterval(interval);
+            submitTest();
+        }
+        timer--;
+    }, 1000);
+}
+
+function loadQuestions() {
+    let form = document.getElementById('quizForm');
+    questions.forEach((q, index) => {
+        let questionDiv = document.createElement('div');
+        questionDiv.classList.add('question');
+        questionDiv.innerHTML = `
+            <div class="question-text">${index + 1}. ${q.question}</div>
+            <div class="options">
+                ${q.options.map(opt => `
+                    <label>
+                        <input type="radio" name="q${index}" value="${opt}" /> ${opt}
+                    </label>
+                `).join('')}
+            </div>
+        `;
+        form.appendChild(questionDiv);
+    });
+}
+
+function submitTest() {
+    clearInterval(interval);
+    let form = document.getElementById('quizForm');
+    let score = 0;
+    questions.forEach((q, index) => {
+        let answer = form.querySelector(input[name="q${index}"]:checked);
+        if (answer && answer.value === q.correct) {
+            score++;
+        }
+    });
+    alert(Test Submitted! You scored: ${score} out of ${questions.length});
+}
+
+// Start the test timer and load questions when page is ready
+window.onload = function() {
+    startTimer();
+    loadQuestions();
+};
+</script>
+
+</body>
+</html>
